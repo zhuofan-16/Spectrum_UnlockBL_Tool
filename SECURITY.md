@@ -35,7 +35,8 @@ Allow the maintainer a reasonable opportunity to investigate and coordinate a fi
 - Obtain the script from a repository or release source you trust, and inspect it before running it. Do not run an unreviewed fork or modified copy with a sensitive private key.
 - Use only a device identifier and signing key you are authorized to use. Do not share unlock tokens or identifiers publicly.
 - Keep private keys out of the repository, command history, shared directories, and issue or pull request attachments. Restrict access to key files and use a trusted environment.
-- Run the script from a dedicated working directory and check for existing files before execution. The script creates temporary files in its working directory and may remove an existing file at the requested signature output path.
+- The current script uses fixed temporary filenames (`identifier.txt`, `identifier.bin`, and `padding.bin`) in the working directory and removes files with those names. It also removes an existing signature output file before attempting to create its replacement. Use a dedicated working directory, verify these paths do not contain files you need, and keep backups. These behaviors should be corrected in the script before relying on it in sensitive workflows.
+- The current script may leave temporary identifier files in the working directory if processing or signing fails. Check for and securely remove any remaining temporary files after a failed run.
 - Verify the generated output and follow the device manufacturer's instructions before attempting an unlock. Back up important device data first.
 - Do not use this tool to bypass access controls or to modify devices without authorization.
 
